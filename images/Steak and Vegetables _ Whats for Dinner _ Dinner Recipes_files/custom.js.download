@@ -1,0 +1,233 @@
+jQuery(document).ready(function() {
+    jQuery('.customtooltiptext').hide();
+    jQuery('.customtooltip input').focus(function() {
+        if (!jQuery(this).hasClass('oncevisited')) {
+            jQuery('.customtooltiptext').show();
+            jQuery(this).addClass("oncevisited");
+        } else {
+            jQuery('.customtooltiptext').hide();
+        }
+    });
+    jQuery('.customtooltiptext a').click(function(e) {
+        e.preventDefault();
+        jQuery('.customtooltiptext').hide();
+    });
+
+    jQuery("#gotoingredients").click(function() {
+        jQuery("li.description").removeClass('active');
+        jQuery("li.ingredients").addClass('active');
+    });
+    jQuery("#gotomethod").click(function() {
+        jQuery("li.ingredients").removeClass('active');
+        jQuery("li.method").addClass('active');
+    });
+
+    jQuery('.subcategory_slider').hide();
+    jQuery('.customtooltiptext').hide();
+    jQuery('.customtooltip input').focus(function() {
+        if (!jQuery(this).hasClass('oncevisited')) {
+            jQuery('.customtooltiptext').show();
+            jQuery(this).addClass("oncevisited");
+        } else {
+            jQuery('.customtooltiptext').hide();
+        }
+    });
+    jQuery('.customtooltiptext a').click(function(e) {
+        e.preventDefault();
+        jQuery('.customtooltiptext').hide();
+    });
+    jQuery('.product_customtooltiptext').hide();
+    jQuery(function() {
+        jQuery('.product_customtooltip span').click(function() {
+            jQuery('.product_customtooltiptext').show();
+        });
+        jQuery('.product_customtooltiptext a').click(function() {
+            jQuery('.product_customtooltiptext').hide();
+        });
+    });
+    jQuery("#product_sortby").dropkick();
+
+});
+jQuery(document).on('click', "#customtab li", function() {
+    jQuery('#customtab').children().removeClass('active');
+    jQuery(this).addClass("active");
+});
+
+// product slider of tabbing
+
+if (jQuery(window).width() < 992) {
+    jQuery('#customtab li:not(.active)').hide();
+    jQuery("#customtab li").each(function(e) {
+        if (e != 0) jQuery(this).hide();
+    });
+
+    jQuery("#next").click(function(e) {
+        e.preventDefault();
+        if (jQuery("#customtab li:visible").next().length != 0) {
+            jQuery("#customtab li:visible").next().find("a").get(0).click();
+            jQuery("#customtab li:visible").next().show().prev().hide();
+
+        } else {
+            jQuery("#customtab li:visible").hide();
+            jQuery("#customtab li:first").show();
+            jQuery("#customtab li:first").find("a").get(0).click();
+        }
+        return false;
+    });
+
+    jQuery("#prev").click(function(e) {
+        e.preventDefault();
+        if (jQuery("#customtab li:visible").prev().length != 0) {
+            jQuery("#customtab li:visible").prev().find("a").get(0).click();
+            jQuery("#customtab li:visible").prev().show().next().hide();
+        } else {
+            jQuery("#customtab li:visible").hide();
+            jQuery("#customtab li:last").show();
+            jQuery("#customtab li:last").find("a").get(0).click();
+        }
+        return false;
+    });
+}
+
+// recipe slider of tabbing
+
+if (jQuery(window).width() < 992) {
+
+    jQuery('#recipetab li:not(.active)').hide();
+    jQuery("#recipetab li").each(function(e) {
+        if (e != 0)
+            jQuery(this).hide();
+    });
+
+    jQuery("#recipenext").click(function() {
+        if (jQuery("#recipetab li:visible").next().length != 0) {
+            jQuery("#recipetab li:visible").next().find("a").get(0).click();
+            jQuery("#recipetab li:visible").next().show().prev().hide();
+
+        } else {
+            jQuery("#recipetab li:visible").hide();
+            jQuery("#recipetab li:first").show();
+            jQuery("#recipetab li:first").find("a").get(0).click();
+        }
+        return false;
+    });
+
+    jQuery("#recipeprev").click(function() {
+        if (jQuery("#recipetab li:visible").prev().length != 0) {
+            jQuery("#recipetab li:visible").prev().find("a").get(0).click();
+            jQuery("#recipetab li:visible").prev().show().next().hide();
+        } else {
+            jQuery("#recipetab li:visible").hide();
+            jQuery("#recipetab li:last").show();
+            jQuery("#recipetab li:last").find("a").get(0).click();
+        }
+        return false;
+    });
+}
+
+
+// step slider for recipe
+jQuery('li.method a').on('shown.bs.tab', function (event) {
+    event.preventDefault();
+    jQuery(".recipe_details .tab-content").css("width","80%");
+    jQuery(".printmethod").show();
+    jQuery('#share_this').show();
+    jQuery('#share_this_mobile').show();
+    handleMobileMethodCarousel()
+    jQuery('a[href="#mblstep"], a[href="#mblmethodall"]').on('click', function (event) {
+        event.preventDefault();
+        var killSlider = true
+        handleMobileMethodCarousel(event, killSlider)
+    });
+    if (!jQuery(this).hasClass('onceadded')) {
+        // handleMobileMethodCarousel()
+        jQuery(this).addClass("onceadded");
+    }
+});
+
+jQuery('li.ingredients a').on('shown.bs.tab', function (e) {
+    jQuery(".recipe_details .tab-content").css("width","80%");
+    jQuery(".printmethod").show();
+    jQuery('#share_this').show();
+    jQuery('#share_this_mobile').show();
+});
+jQuery('li.description a').on('shown.bs.tab', function(e) {
+    jQuery(".recipe_details .tab-content").css("width", "80%");
+    jQuery(".printmethod").show();
+    jQuery('#share_this').show();
+    jQuery('#share_this_mobile').show();
+});
+jQuery('li.alternative a').on('shown.bs.tab', function(e) {
+    jQuery(".recipe_details .tab-content").css("width", "90%");
+    jQuery(".printmethod").hide();
+    jQuery('#share_this').hide();
+    jQuery('#share_this_mobile').hide();
+    if (!jQuery(this).hasClass('onceadded')) {
+        jQuery("#alternative-carousel").slick({
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            centerPadding: '60px',
+            infinite: true,
+            dots: true,
+            arrows: true,
+            responsive: [{
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true
+                }
+            }]
+        });
+        jQuery(this).addClass("onceadded");
+    }
+});
+
+function handleMobileMethodCarousel(event, killSlider) {
+    var event = event || false
+    var killSlider = killSlider || false
+    var slider = jQuery("#steps_carousel_mbl")
+    var sliderIsInitialized = slider.hasClass('slick-initialized')
+    var initSlider = function () {
+        slider.slick({
+            nav: true,
+            infinite: true,
+            dots: false,
+            arrows: true
+        });
+    };
+    if (event) event.preventDefault();
+    if (killSlider) {
+        if (sliderIsInitialized) {
+            slider.slick('destroy');
+            return setTimeout(function () {
+                initSlider();
+            }, 01);
+        }
+        return false;
+    }
+    if (!sliderIsInitialized) {
+        return initSlider();
+    }
+}
+
+if (jQuery(window).width() > 992) {
+    var maxHeight = 0;
+    jQuery(".recipe_details .tab-pane").each(function() {
+        jQuery(this).addClass("active");
+        var height = jQuery(this).outerHeight();
+        maxHeight = height > maxHeight ? height : maxHeight;
+        jQuery(this).removeClass("active");
+    });
+    if (maxHeight < "449"){
+        var maxHeight = "500";
+    } else {
+        var maxHeight = maxHeight + 115;
+    }
+    jQuery(".tab-content .tab-pane:first").addClass("active");
+    jQuery(".recipe_details .tab-pane").each(function() {
+        jQuery(".recipe_details .tab-pane").height(maxHeight);
+    });
+    var recipeimgh = jQuery(".recipe_right_container").height();
+    jQuery("#recipeimg").css('height', recipeimgh);
+}

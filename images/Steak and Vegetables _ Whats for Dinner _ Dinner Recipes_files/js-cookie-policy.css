@@ -1,0 +1,78 @@
+#cookie-policy,
+#manage-cookies {
+  z-index: 199;
+  display: block;
+  position: fixed;
+}
+
+#cookie-policy {
+  /* Positioning of notice */
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* sizing */
+  margin: 0;
+  padding: 0;
+  /* aesthetics */
+  background-color: #fff;
+  z-index: 9999;
+}
+
+#cookie-policy .cookie-pop-up {
+  /* positioning */
+  margin: 0 auto;
+  width: 95%;
+  /* layout */
+  max-width: 960px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#cookie-policy .cookie-message {
+  margin: 0;
+  flex: 1 1 auto;
+  font-weight: 300;
+}
+ 
+#cookie-policy .cookie-button,
+#manage-cookies .cookie-button {
+  /* Normalise the button styles */
+  display: inline-block;
+  border: none;
+  padding: .75rem 3rem .5rem;
+  margin: 0;
+  text-decoration: none;
+  background: #009144;
+  color: #ffffff;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background 250ms ease-in-out,  transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+#cookie-policy button:hover,
+#cookie-policy button:focus {
+  background: #363636;
+}
+
+#cookie-policy button:focus {
+  outline: 1px solid #fff;
+  outline-offset: -4px;
+}
+
+#cookie-policy button:active {
+  transform: scale(0.99);
+}
+
+#manage-cookies {
+  bottom: 10px;
+  left: 10px;
+}
